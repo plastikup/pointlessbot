@@ -1,7 +1,7 @@
 import { ChatInputCommandInteraction, SlashCommandBuilder, SlashCommandSubcommandsOnlyBuilder } from 'discord.js'
-import { AppContext } from './context'
+import { AppContext } from './context.type'
 
-type CommandExecute = (interfaction: ChatInputCommandInteraction, context: AppContext) => Promise<void>
+type CommandExecute = (interaction: ChatInputCommandInteraction, context: AppContext) => Promise<void>
 interface SingleLayerCommand {
 	data: SlashCommandBuilder
 	execute: CommandExecute
@@ -9,6 +9,7 @@ interface SingleLayerCommand {
 interface MultiLayerCommand {
 	data: SlashCommandSubcommandsOnlyBuilder
 	subcommands: Record<string, CommandExecute>
+	beforeAll?: (interaction: ChatInputCommandInteraction, context: AppContext) => Promise<boolean>
 }
 
 export type Command = SingleLayerCommand | MultiLayerCommand

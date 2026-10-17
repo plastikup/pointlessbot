@@ -9,6 +9,7 @@ export class InMemoryIcebreakerRepository implements IIcebreakerRepository {
 		const newQuestion: Icebreaker = {
 			id: this.questions.length + 1,
 			title: null,
+			options: [],
 			status: IcebreakerPromptStatus.QUEUED,
 			createdAt: new Date(Date.now()),
 			...question,

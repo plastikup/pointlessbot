@@ -1,6 +1,6 @@
 import { Events } from 'discord.js'
 import { client } from '../src'
-import { commands } from '../src/bot/commands'
+import { commands } from '../src/bot/features'
 
 client.once(Events.ClientReady, async () => {
 	if (!client.application) return console.error('Client application is not initialized')

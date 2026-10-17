@@ -7,15 +7,15 @@ export class IcebreakerService {
 	constructor(private readonly repo: IIcebreakerRepository) { }
 
 	/** Adds a new icebreaker question to the queue */
-	public async addQuestion(guildId: string, prompt: string, title?: string): Promise<Failable<Icebreaker>> {
+	public async addQuestion(guildId: string, body: string, title?: string): Promise<Failable<Icebreaker>> {
 		// Icebreaker title length is defined by Discord's thread title max length
 		// whereas the icebreaker prompt length is purely arbitrary
 		if (title && title.length > 100) return fail({ message: 'Icebreaker title must be 100 characters or less' })
-		if (prompt.length < 10) return fail({ message: 'Icebreaker prompt must be at least 10 characters' })
-		if (prompt.length > 1000) return fail({ message: 'Icebreaker prompt must be 1000 characters or less' })
+		if (body.length < 10) return fail({ message: 'Icebreaker prompt must be at least 10 characters' })
+		if (body.length > 1000) return fail({ message: 'Icebreaker prompt must be 1000 characters or less' })
 		// TODO: verify whether bot exists in the provided guild
 
-		const icebreaker = await this.repo.addQuestion({ guildId, prompt, title })
+		const icebreaker = await this.repo.addQuestion({ guildId, body, title })
 		return success(icebreaker)
 	}
 
